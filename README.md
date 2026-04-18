@@ -53,7 +53,7 @@
 
 1. 注册 / 登录 [Dify 云端版](https://dify.ai/)
 2. 在工作室中点击「创建应用」→「导入 DSL 文件」
-3. 上传本仓库中的 `dify_workflow.yml`
+3. 上传本仓库中的 `古人朋友圈.yml`
 4. 配置你自己的 DeepSeek API Key
 5. 点击「发布」即可使用
 
