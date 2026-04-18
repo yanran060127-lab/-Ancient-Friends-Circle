@@ -1,0 +1,326 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: advanced-chat
+  name: 古人朋友圈
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.12@37699cc3d1ea9e006348a7273a514f3ddf60ffb0649dc735c594c8da6a80934b
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 50
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1776397043852-source-1776397412704-target
+      selected: false
+      source: '1776397043852'
+      sourceHandle: source
+      target: '1776397412704'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1776397500497-source-1776403755446-target
+      selected: false
+      source: '1776397500497'
+      sourceHandle: source
+      target: '1776403755446'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1776397412704-true-1776397500497-target
+      selected: false
+      source: '1776397412704'
+      sourceHandle: 'true'
+      target: '1776397500497'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1776397412704-false-1776405094830-target
+      selected: false
+      source: '1776397412704'
+      sourceHandle: 'false'
+      target: '1776405094830'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1776405094830-source-1776409491408-target
+      selected: false
+      source: '1776405094830'
+      sourceHandle: source
+      target: '1776409491408'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables:
+        - default: ''
+          hint: ''
+          label: 身份
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: identity
+        - default: ''
+          hint: ''
+          label: 朝代
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: era
+        - default: ''
+          hint: ''
+          label: core_value 人生价值
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: core_value
+      height: 159
+      id: '1776397043852'
+      position:
+        x: -5.227430279569489
+        y: 277.25688393118986
+      positionAbsolute:
+        x: -5.227430279569489
+        y: 277.25688393118986
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: d8382d0d-ec0e-4808-af7b-d529144a6f1a
+            value: 入世向学
+            varType: string
+            variable_selector:
+            - '1776397043852'
+            - core_value
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 条件分支
+        type: if-else
+      height: 146
+      id: '1776397412704'
+      position:
+        x: 296.4401506080667
+        y: 270.73501041110035
+      positionAbsolute:
+        x: 296.4401506080667
+        y: 270.73501041110035
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 654937c1-c863-4ad0-8ee0-652ed857daf4
+          role: system
+          text: '你是一位跨越时空的社交媒体运营官。 当前人物：时代为 {{era}} 的 {{identity}}。 他的核心价值观是：{{core_value}}。
+
+            请根据以上信息，为他生成一条极具网感的朋友圈。
+
+            输出规范：
+
+            结合人物的生平事迹或著名诗词，用现代幽默口吻点评。
+
+            使用 Markdown 的引用块 > 来模拟手机界面排版，增强视觉的高级感和整洁度。
+
+            生成 2-3 个同时代历史人物的点赞和评论互动。
+
+            '
+        selected: false
+        title: LLM 2
+        type: llm
+        vision:
+          enabled: false
+      height: 86
+      id: '1776397500497'
+      position:
+        x: 632.0638659783453
+        y: 314.65823185637595
+      positionAbsolute:
+        x: 632.0638659783453
+        y: 314.65823185637595
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1776397500497.text#}}'
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 101
+      id: '1776403755446'
+      position:
+        x: 975.7749398330959
+        y: 288.72624538731475
+      positionAbsolute:
+        x: 975.7749398330959
+        y: 288.72624538731475
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 4346f3fb-4d43-4102-8e8a-fa9836a8b828
+          role: system
+          text: 'Prompt 设定：
+
+            你是一个跨越时空的社交媒体运营官。当前历史人物（{{identity}}）正处于“不想努力、追求{{core_value}}”的状态。 请为他生成一条“旷达/摆烂/游山玩水”的朋友圈。
+            要求：用现代打工人的“反内卷”口吻，结合他真实的被贬或游历经历。评论区要安排几个还在“苦逼加班”的同僚（比如王安石、张居正）进行酸溜溜的互动。'
+        selected: false
+        title: LLM 2
+        type: llm
+        vision:
+          enabled: false
+      height: 86
+      id: '1776405094830'
+      position:
+        x: 632.0638659783453
+        y: 448.6582317634177
+      positionAbsolute:
+        x: 632.0638659783453
+        y: 448.6582317634177
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1776405094830.text#}}{{#1776405094830.text#}}'
+        selected: false
+        title: 直接回复 2
+        type: answer
+        variables: []
+      height: 101
+      id: '1776409491408'
+      position:
+        x: 992.0009658577833
+        y: 489.4733668287653
+      positionAbsolute:
+        x: 992.0009658577833
+        y: 489.4733668287653
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    viewport:
+      x: 169.88875145105982
+      y: 70.96332178694666
+      zoom: 0.7468504984885723
+  rag_pipeline_variables: []
